@@ -1,5 +1,5 @@
 {
-    "id": "ethereum",
+    "id": "ethereum.json",
     "description": "Ethereum is a decentralized, open-source blockchain with smart contract functionality. Ether is the native cryptocurrency of the platform. It is the second-largest cryptocurrency by market capitalization, after Bitcoin. Ethereum is the most actively used blockchain.",
     "tags": [
         "pos",
@@ -9,7 +9,7 @@
         "evm"
     ],
     "coin_details": {
-        "name": "Ethereum",
+        "name": "Ethereum.json",
         "symbol": "ETH",
         "logo": "logo/ethereum.png",
         "max_supply": "∞"
