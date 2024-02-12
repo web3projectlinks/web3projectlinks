@@ -1,9 +1,11 @@
 /** @format */
 
+import React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Navbar/Footer";// Import Footer component
 import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,12 +21,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <main className="h-screen w-full ">
+    <html lang="en" className="h-full">
+      <body className={`flex flex-col h-full ${inter.className}`}>
+        <header>
           <Navbar />
-          <div className="h-full w-full">{children}</div>
-        </main>
+        </header>
+        <main className="flex-grow">{children}</main>
+        <footer>
+          <Footer />
+        </footer>
         <GoogleAnalytics gaId="G-VQJV22LQH8" />
       </body>
     </html>
