@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface CryptoCardProps {
   imageSrc: string;
@@ -8,23 +8,23 @@ interface CryptoCardProps {
 
 const CryptoCard: React.FC<CryptoCardProps> = ({ imageSrc, name, detail }) => {
   return (
-    <div className="card mx-4 my-4  shadow-white rounded-lg" style={{ width: "24rem", minHeight: "12rem", backgroundColor: "rgb(63 67 70)", color: "white" }}>
-      <img src={imageSrc} className="card-img-top rounded-lg w-24 h-24 object-cover p-2" alt={name} />
-      <div className="card-body p-4">
+    <div className="    flex cursor-pointer flex-col gap-4 rounded-lg border border-gray-300 p-4 text-white shadow shadow-white transition-all hover:opacity-60">
+      <section className="flex items-center gap-3">
+        <img
+          src={imageSrc}
+          className="card-img-top h-16 w-16 rounded-full   object-cover p-2"
+          alt={name}
+        />
         <h5 className="card-title font-bold">{name}</h5>
-        <p className="card-text">{detail}</p>
-        <a href="#" className="btn btn-primary">Go somewhere</a>
+      </section>
+      {/* card-body */}
+      <div className=" ">
+        <div className="max-h-24 overflow-hidden">
+          <p className="line-clamp-3">{detail}</p>
+        </div>
       </div>
     </div>
   );
 };
 
 export default CryptoCard;
-
-
-
-
-
-
-
-
