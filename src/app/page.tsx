@@ -1,7 +1,8 @@
-/** @format */
-
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import CryptoCard from "./components/Navbar/card";
+import { IoSearch } from 'react-icons/io5';
+import Link from "next/link";
 
 const cryptoData = [
   {
@@ -103,19 +104,50 @@ const cryptoData = [
       "VeChain is a blockchain platform that aims to improve business operations by enhancing the tracking of processes and products. It allows manufacturers to add sensors, such as RFID tags, to their products that can then record data onto the VeChain blockchain.",
   },
 ];
-
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResult, setSearchResult] = useState<{
+    imageSrc: string;
+    name: string;
+    detail: string;
+  }[]>([]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    const filteredData = cryptoData.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setSearchResult(filteredData);
+  };
+
   return (
-    <main className="flex flex-col gap-4 px-3  pb-10 sm:px-10">
-      <h1 className="  border-b border-gray-700 py-5 text-3xl font-semibold text-white ">
-        All Projects
-      </h1>
-      <section className=" grid  grid-cols-1 gap-6  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {cryptoData.map((d, i) => (
-          <CryptoCard key={i} {...{ ...d }} />
-        ))}
+    <main className="flex flex-col gap-4 px- pb-10 sm:px-15 ">
+      <nav className="sticky top-0 flex  w-full  items-center justify-between  border-b-[1px] border-slate-600  bg-[#323232] px-10 py-2 text-white backdrop-blur-sm">
+      <Link href={"/"} className="text-2xl font-semibold">
+        Logo
+      </Link>
+      <div className="  relative flex items-center ">
+        <IoSearch className="absolute left-2" />
+        <input
+          type="text"
+          placeholder="Search Projects..."
+	        value={searchQuery}
+          onChange={handleSearch}
+          className=" h-10 w-[320px] max-w-full rounded border-none bg-[#1a1a1b] p-2 pl-10  outline-white"
+        />
+      </div>
+    </nav>
+
+      <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {searchQuery === "" ? (
+          cryptoData.map((d, i) => <CryptoCard key={i} {...{ ...d }} />)
+        ) : searchResult.length > 0 ? (
+          searchResult.map((d, i) => <CryptoCard key={i} {...{ ...d }} />)
+        ) : (
+          <p className="text-white">Not Found</p>
+        )}
       </section>
-      {/* Add more CryptoCard components as needed */}
     </main>
   );
 }
