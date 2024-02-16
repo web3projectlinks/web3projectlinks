@@ -1,7 +1,11 @@
 /** @format */
+"use client";
 
+import { fetchCoinData, fetchCoinsData } from "@/actions/fetch-projects";
+import CryptoCard from "@/components/crypto-card";
+import { CryptoDataType } from "@/types/type";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import CryptoCard from "./components/Navbar/card";
 
 const cryptoData = [
   {
@@ -105,17 +109,45 @@ const cryptoData = [
 ];
 
 export default function Home() {
+  const { isLoading, data } = useQuery<CryptoDataType[]>({
+    queryKey: ["coinsData"],
+    queryFn: () => fetchCoinsData(),
+  });
+
+  console.log("data", data);
+
+  // if (isLoading) return "Loading...";
+
   return (
-    <main className="flex flex-col gap-4 px-3  pb-10 sm:px-10">
+    <main className="flex h-full flex-col gap-4 overflow-auto  px-3 pb-10 sm:px-10">
       <h1 className="  border-b border-gray-700 py-5 text-3xl font-semibold text-white ">
         All Projects
       </h1>
-      <section className=" grid  grid-cols-1 gap-6  sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {cryptoData.map((d, i) => (
-          <CryptoCard key={i} {...{ ...d }} />
-        ))}
-      </section>
+      {isLoading ? (
+        <div className="flex h-full w-full items-center justify-center">
+          <Spinner />
+        </div>
+      ) : (
+        <section className=" grid h-full  grid-cols-1 gap-6    sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {data &&
+            data?.length > 0 &&
+            data?.map((d, i) => <CryptoCard key={i} {...{ ...d }} />)}
+        </section>
+      )}
       {/* Add more CryptoCard components as needed */}
     </main>
+  );
+}
+
+export function Spinner() {
+  return (
+    <div
+      className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+      role="status"
+    >
+      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+        Loading...
+      </span>
+    </div>
   );
 }
