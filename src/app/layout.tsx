@@ -1,6 +1,5 @@
 /** @format */
 
-import React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -27,15 +26,25 @@ export default function RootLayout({
   const footerHeight = "80px";
 
   return (
-    <html lang="en" className="h-full">
-      <body className={`flex flex-col h-full ${inter.className}`}>
-        <header>
-          <Navbar />
-        </header>
-        <main className="flex-grow">{children}</main>
-        <footer>
-          <Footer />
-        </footer>
+    <html lang="en">
+      <body
+        className={cn(inter.className, {
+          "debug-screens": process.env.NODE_ENV == "development",
+        })}
+      >
+        <Provider>
+          {/* <main className="min-h-screen  w-full  bg-zinc-900 text-white  "> */}
+          <main className="min-h-screen  w-full  bg-black text-white  ">
+            {/* <Navbar style={{ height: navbarHeight }} /> */}
+            <Navbar />
+            {/*  style={{
+                minHeight: `calc(100vh - ${navbarHeight} - ${footerHeight})`,
+              }} */}
+            <div className="  min-h-full  w-full ">{children}</div>
+            {/* <Footer style={{ height: footerHeight }} /> */}
+            <Footer />
+          </main>
+        </Provider>
         <GoogleAnalytics gaId="G-VQJV22LQH8" />
       </body>
     </html>
