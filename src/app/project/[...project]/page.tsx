@@ -4,7 +4,6 @@ import Link from "next/link";
 import React from "react";
 import Balancer from "react-wrap-balancer";
 import { TfiWorld } from "react-icons/tfi";
-import { ProjectType } from "@/types/project-type";
 import { useQuery } from "@tanstack/react-query";
 import {
   ChainDetail,
@@ -26,6 +25,8 @@ import {
   FaReddit,
 } from "react-icons/fa";
 import { HiOutlineExternalLink } from "react-icons/hi";
+import { convertToHyphenated } from "@/lib/utils";
+import Image from "next/image";
 
 // https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=inr
 export default function ProjectDetails({
@@ -52,12 +53,19 @@ export default function ProjectDetails({
           <h2 className="text-2xl text-slate-300">
             #{currentCoinData?.market_cap_rank}{" "}
           </h2>
-          <img
-            // src={"https://cdn-icons-png.flaticon.com/512/6001/6001368.png"}
-            src={currentCoinData?.image}
-            className="card-img-top h-16 w-16 rounded-full   object-cover "
-            alt={"project-img"}
-          />
+          <div className="h-16 w-16 rounded-full bg-gray-100 ">
+            {project?.id && (
+              <img
+                width={100}
+                height={100}
+                // src={"https://cdn-icons-png.flaticon.com/512/6001/6001368.png"}
+                // src={currentCoinData?.image}
+                src={`/logos/${project.id}.ico`}
+                className="card-img-top h-full w-full     object-cover "
+                alt={"project-img"}
+              />
+            )}
+          </div>
           <h5 className="card-title text-2xl font-bold capitalize">
             {project?.id}
           </h5>
@@ -91,7 +99,10 @@ export default function ProjectDetails({
         </div>
       </section>
       {project?.meta_data.map((d, i) => (
-        <section className="flex flex-col gap-3 border-b border-gray-500 pb-5">
+        <section
+          key={i}
+          className="flex flex-col gap-3 border-b border-gray-500 pb-5"
+        >
           <h2 className=" text-xl font-semibold">{d.name}</h2>
           <div className="flex flex-wrap gap-3">
             {d.data.map((innerData, i) => (
@@ -122,10 +133,13 @@ export interface MetaData {
 }
 function URLCard(props: UrlData) {
   const { name, url } = props;
-
+  const projectId = convertToHyphenated(name);
+  convertToHyphenated;
   return (
     <div className=" flex items-center gap-2 rounded border  px-3 py-1 shadow-md">
-      <h2 className=" font-semibold">{name}</h2>
+      <Link href={`/project/${projectId}`} className=" font-semibold">
+        {name}
+      </Link>
       <Link
         href={url}
         target="_blank"
