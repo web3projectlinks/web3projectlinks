@@ -41,9 +41,22 @@ export default function Footer(props: React.HTMLAttributes<HTMLDivElement>) {
       )}
     >
       <Logo />
-      <p className="text-sm text-gray-300">
-        Copyright 2024. All rights reserved.
-      </p>
+      <div>
+        <p className="text-sm text-gray-300">
+          Copyright 2024. All rights reserved.
+        </p>
+        <p className="flex items-center gap-1  text-xs text-gray-300">
+          <span> Data Powered by</span>
+
+          <Link
+            target="_blank"
+            href={"https://www.coingecko.com/en/api "}
+            className="text-blue-500"
+          >
+            CoinGecko API
+          </Link>
+        </p>
+      </div>
 
       <section className="flex gap-4">
         {socialLinks.map((d, i) => (
