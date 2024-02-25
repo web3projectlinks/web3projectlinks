@@ -8,6 +8,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import Provider from "./provider";
 import { cn } from "@/lib/utils";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,12 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        {/* <link rel="icon" href="/logo.png" /> */}
+        <link rel="icon" href="/assets/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
+      </head>
+
       <body
         className={cn(inter.className, {
           "debug-screens": process.env.NODE_ENV == "development",
