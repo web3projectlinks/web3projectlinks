@@ -36,7 +36,7 @@ export default function Footer(props: React.HTMLAttributes<HTMLDivElement>) {
     <footer
       {...props}
       className={cn(
-        "  flex flex-col   items-center  justify-between gap-3   border-b-[1px] border-t border-slate-600 bg-black px-10 py-3 text-white  transition-all sm:flex-row ",
+        "  flex flex-col   items-center  justify-between gap-3   border-b-[1px] border-t border-slate-600 bg-background px-10 py-3 text-foreground  transition-all sm:flex-row ",
         props.className,
       )}
     >
@@ -51,7 +51,7 @@ export default function Footer(props: React.HTMLAttributes<HTMLDivElement>) {
           <Link
             target="_blank"
             href={"https://www.coingecko.com/en/api "}
-            className="text-blue-500"
+            className="text-blue-500 hover:opacity-80"
           >
             CoinGecko API
           </Link>

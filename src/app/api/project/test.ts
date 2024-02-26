@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { mergeJSONFiles } from "./../lib/json-utils";
+import { mergeJSONFiles } from "../lib/json-utils";
 import { fetchCoinData } from "@/actions/fetch-projects";
 
 export async function GET(request: NextRequest) {

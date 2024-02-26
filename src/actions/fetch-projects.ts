@@ -20,9 +20,9 @@ export async function fetchCoinData(projectId: string) {
 }
 
 // https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=2
-export async function fetchCoinsData() {
+export async function fetchCoinsData(currentPage?: number) {
   // const api = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1`; //
-  const api = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&x_cg_demo_api_key=${process.env.COINGECKO_API_KEY}`; //
+  const api = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=${currentPage ?? 1}&x_cg_demo_api_key=${process.env.COINGECKO_API_KEY}`; //
   const res = await fetch(api);
 
   if (!res.ok) {
@@ -32,8 +32,9 @@ export async function fetchCoinsData() {
   return res.json();
 }
 export async function fetchProject(projectId: string) {
-  const api = `${process.env.HOST_URL}/api/project/${projectId}`;
-  const res = await fetch(api);
+  // const api = `${process.env.HOST_URL}/api/project/${projectId}`;
+  const api = `/api/project/${projectId}`;
+  const res = await fetch(`/api/project/${projectId}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch coin data");

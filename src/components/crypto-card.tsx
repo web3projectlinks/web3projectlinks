@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectType } from "../types/project-type";
+// import { ProjectType } from "../types/project-type";
 import Link from "next/link";
 import { CryptoDataType } from "@/types/type";
 
@@ -12,7 +12,7 @@ import { CryptoDataType } from "@/types/type";
 export default function CryptoCard(props: CryptoDataType) {
   return (
     <Link
-      href={`project/${props.id}`}
+      href={`/project/${props.id}`}
       className="    flex cursor-pointer flex-col gap-4 rounded-lg border border-gray-300 p-2 text-white shadow shadow-white transition-all hover:opacity-60"
     >
       <section className="flex items-center gap-3">
