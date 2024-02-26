@@ -9,6 +9,7 @@ import Footer from "@/components/footer";
 import Provider from "./provider";
 import { cn } from "@/lib/utils";
 import Head from "next/head";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,6 +52,7 @@ export default function RootLayout({
             {/* <Footer style={{ height: footerHeight }} /> */}
             <Footer />
           </main>
+          <Toaster />
         </Provider>
         <GoogleAnalytics gaId="G-VQJV22LQH8" />
       </body>

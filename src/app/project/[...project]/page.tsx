@@ -25,8 +25,11 @@ import {
   FaReddit,
 } from "react-icons/fa";
 import { HiOutlineExternalLink } from "react-icons/hi";
-import { convertToHyphenated } from "@/lib/utils";
+import { convertToHyphenated, copyText } from "@/lib/utils";
 import Image from "next/image";
+import { IoCopy } from "react-icons/io5";
+import { useToast } from "@/components/ui/use-toast";
+import { Spinner } from "@/components/spinner";
 
 // https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=inr
 export default function ProjectDetails({
@@ -35,19 +38,28 @@ export default function ProjectDetails({
   params: { project: string };
 }) {
   const { isLoading, data: project } = useQuery<ProjectData>({
-    queryKey: ["projectData"],
-    queryFn: () => fetchProject(params.project),
+    queryKey: ["singleProject"],
+    queryFn: () =>
+      fetch(`/api/project/${params.project}`).then((res) => res.json()),
   });
   const { data: coinData } = useQuery<CryptoDataType[]>({
     queryKey: ["coinData"],
     queryFn: () => fetchCoinData(params.project),
   });
+
   const currentCoinData: CryptoDataType | null = coinData ? coinData[0] : null;
   console.log("project", project);
   console.log("coinData", coinData);
 
+  if (isLoading)
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   return (
-    <div className="flex flex-col gap-5 p-10 text-white">
+    <div className="flex flex-col gap-5 bg-background p-10 text-foreground">
       <section className="flex flex-col   gap-2">
         <div className="flex items-center gap-3">
           <h2 className="text-2xl text-slate-300">
@@ -132,14 +144,19 @@ export interface MetaData {
   data: { name: string; url: string }[];
 }
 function URLCard(props: UrlData) {
+  const { toast } = useToast();
   const { name, url } = props;
   const projectId = convertToHyphenated(name);
   // convertToHyphenated;
+  function handleCopy() {
+    copyText(url);
+    toast({
+      description: `Copied : ${url}`,
+    });
+  }
+
   return (
     <div className=" flex items-center gap-2 rounded border  px-3 py-1 shadow-md">
-      <Link href={`/project/${projectId}`} className=" font-semibold">
-        {name}
-      </Link>
       <Link
         href={url}
         target="_blank"
@@ -147,6 +164,14 @@ function URLCard(props: UrlData) {
       >
         <HiOutlineExternalLink size={20} />
       </Link>
+      <Link href={`/project/${projectId}`} className=" font-semibold">
+        {name}
+      </Link>
+      {/* copy */}
+      <IoCopy
+        onClick={handleCopy}
+        className="cursor-pointer hover:opacity-80"
+      />
     </div>
   );
 }

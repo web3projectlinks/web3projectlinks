@@ -34,7 +34,7 @@ export async function fetchCoinsData(currentPage?: number) {
 export async function fetchProject(projectId: string) {
   // const api = `${process.env.HOST_URL}/api/project/${projectId}`;
   const api = `/api/project/${projectId}`;
-  const res = await fetch(api);
+  const res = await fetch(`/api/project/${projectId}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch coin data");
