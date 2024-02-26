@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectType } from "../types/project-type";
+// import { ProjectType } from "../types/project-type";
 import Link from "next/link";
 import { CryptoDataType } from "@/types/type";
 

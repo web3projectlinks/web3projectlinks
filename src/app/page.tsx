@@ -29,24 +29,24 @@ export default function Home() {
     queryFn: () => fetchCoinsData(currentPage),
   });
 
-  // if (isLoading) return "Loading...";
+  if (isLoading)
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Spinner />
+      </div>
+    );
 
   return (
     <main className="flex h-full flex-col gap-4 overflow-auto  px-3 pb-10 sm:px-10">
       <h1 className="  border-b border-gray-700 py-5 text-3xl font-semibold text-white ">
         All Projects
       </h1>
-      {isLoading ? (
-        <div className="flex h-full w-full items-center justify-center">
-          <Spinner />
-        </div>
-      ) : (
-        <section className=" grid h-full  grid-cols-1 gap-6    sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {data &&
-            data?.length > 0 &&
-            data?.map((d, i) => <CryptoCard key={i} {...{ ...d }} />)}
-        </section>
-      )}
+
+      <section className=" grid h-full  grid-cols-1 gap-6    sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {data &&
+          data?.length > 0 &&
+          data?.map((d, i) => <CryptoCard key={i} {...{ ...d }} />)}
+      </section>
 
       {/* pagination */}
       <CustomPagination

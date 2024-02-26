@@ -41,13 +41,13 @@ export default function RootLayout({
       >
         <Provider>
           {/* <main className="min-h-screen  w-full  bg-zinc-900 text-white  "> */}
-          <main className="min-h-screen  w-full flex flex-col  justify-between bg-background  text-foreground  ">
+          <main className="flex h-full  min-h-screen w-full flex-col  justify-between bg-background  text-foreground  ">
             {/* <Navbar style={{ height: navbarHeight }} /> */}
             <Navbar />
             {/*  style={{
                 minHeight: `calc(100vh - ${navbarHeight} - ${footerHeight})`,
               }} */}
-            <div className="  min-h-full   w-full ">{children}</div>
+            <div className="  h-full   w-full ">{children}</div>
             {/* <Footer style={{ height: footerHeight }} /> */}
             <Footer />
           </main>

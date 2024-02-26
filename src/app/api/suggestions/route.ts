@@ -1,7 +1,7 @@
 import data from "@/app/assets/search-suggestions.json";
 import { NextResponse, NextRequest } from "next/server";
 
-export function GET(req: NextRequest) {
+export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
   const query = searchParams.get("query");
 
