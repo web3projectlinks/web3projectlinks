@@ -10,19 +10,27 @@
   },
   "dependencies": {
     "@next/third-parties": "^14.1.0",
+    "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@tanstack/react-query": "^5.20.5",
+    "axios": "^1.6.7",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "cmdk": "^0.2.1",
+    "install": "^0.13.0",
     "lucide-react": "^0.341.0",
     "next": "14.1.0",
+    "next-themes": "^0.2.1",
+    "npm": "^10.4.0",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
     "react-wrap-balancer": "^1.1.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-debug-screens": "^2.2.1"
+    "tailwindcss-debug-screens": "^2.2.1",
+    "use-debounce": "^10.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -134,7 +134,7 @@ export interface MetaData {
 function URLCard(props: UrlData) {
   const { name, url } = props;
   const projectId = convertToHyphenated(name);
-  convertToHyphenated;
+  // convertToHyphenated;
   return (
     <div className=" flex items-center gap-2 rounded border  px-3 py-1 shadow-md">
       <Link href={`/project/${projectId}`} className=" font-semibold">

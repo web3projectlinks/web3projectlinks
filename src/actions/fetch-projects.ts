@@ -32,7 +32,8 @@ export async function fetchCoinsData(currentPage?: number) {
   return res.json();
 }
 export async function fetchProject(projectId: string) {
-  const api = `${process.env.HOST_URL}/api/project/${projectId}`;
+  // const api = `${process.env.HOST_URL}/api/project/${projectId}`;
+  const api = `/api/project/${projectId}`;
   const res = await fetch(api);
 
   if (!res.ok) {
