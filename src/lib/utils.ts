@@ -35,3 +35,7 @@ export function copyText(text: string) {
   // Alert the copied text
   // alert("Copied the text: " + text);
 }
+
+export function scientificToDecimal(number: number): string {
+  return number.toFixed(15).replace(/\.?0+$/, "");
+}

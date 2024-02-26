@@ -11,6 +11,7 @@ import { ChainDetailCard } from "./components/ChainDetailCard";
 import { URLCard } from "./components/URLCard";
 import { SocialPlatformsCard } from "./components/SocialPlatformsCard";
 import { ProjectCard } from "./components/ProjectCard";
+import { scientificToDecimal } from "@/lib/utils";
 
 export default function ProjectDetails({
   params,
@@ -30,6 +31,7 @@ export default function ProjectDetails({
   const currentCoinData: CryptoDataType | null = coinData ? coinData[0] : null;
   console.log("project", project);
   console.log("coinData", coinData);
+  console.log("currentCoinData?.current_price", currentCoinData?.current_price);
 
   if (isLoading)
     return (
@@ -38,6 +40,9 @@ export default function ProjectDetails({
       </div>
     );
 
+  // const decimalNotation: string = currentCoinData
+  //   ? scientificToDecimal(currentCoinData?.current_price)
+  //   : "";
   return (
     <div className="flex flex-col gap-5 bg-background p-10 text-foreground">
       <section className="flex flex-col   gap-2">
@@ -50,6 +55,11 @@ export default function ProjectDetails({
               <img
                 width={100}
                 height={100}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.onerror = null;
+                  target.src = "/assets/black.png";
+                }}
                 // src={"https://cdn-icons-png.flaticon.com/512/6001/6001368.png"}
                 // src={currentCoinData?.image}
                 src={`/logos/${project.id}.ico`}
@@ -60,6 +70,9 @@ export default function ProjectDetails({
           </div>
           <h5 className="card-title text-2xl font-bold capitalize">
             {project?.id}
+          </h5>
+          <h5 className="card-title text-lg font-medium capitalize">
+            : ${currentCoinData?.current_price}
           </h5>
         </div>
         {/* discription */}

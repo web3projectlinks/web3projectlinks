@@ -19,13 +19,25 @@ export function URLCard(props: UrlData) {
 
   return (
     <div className=" flex items-center gap-2 rounded border  px-3 py-1 shadow-md">
-      <Link
-        href={url}
-        target="_blank"
-        className="flex min-h-6  min-w-6 items-center justify-center hover:opacity-70"
-      >
-        <HiOutlineExternalLink size={20} />
-      </Link>
+      {/*     src={`/logos/${project.id}.ico`} */}
+      <div className="h-8 w-8 overflow-hidden rounded-full border bg-secondary ">
+        <img
+          width={20}
+          height={20}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src = "/assets/black.png";
+          }}
+          // src={"https://cdn-icons-png.flaticon.com/512/6001/6001368.png"}
+          // src={currentCoinData?.image}
+          src={`/logos/${name}.ico`}
+          className="card-img-top h-full w-full      object-cover "
+          alt={" "}
+          // alt={"project-img"}
+        />
+      </div>
+
       <Link href={`/project/${projectId}`} className=" font-semibold">
         {name}
       </Link>
@@ -34,6 +46,13 @@ export function URLCard(props: UrlData) {
         onClick={handleCopy}
         className="cursor-pointer hover:opacity-80"
       />
+      <Link
+        href={url}
+        target="_blank"
+        className="flex min-h-6  min-w-6 items-center justify-center hover:opacity-70"
+      >
+        <HiOutlineExternalLink size={20} />
+      </Link>
     </div>
   );
 }
