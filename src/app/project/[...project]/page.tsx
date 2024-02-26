@@ -18,13 +18,15 @@ export default function ProjectDetails({
 }: {
   params: { project: string };
 }) {
-  const { isLoading, data: project } = useQuery<ProjectData>({
-    queryKey: ["singleProject"],
+  const { isLoading: isProjectLoading, data: project } = useQuery<ProjectData>({
+    queryKey: ["singleProject", params.project],
     queryFn: () =>
       fetch(`/api/project/${params.project}`).then((res) => res.json()),
   });
-  const { data: coinData } = useQuery<CryptoDataType[]>({
-    queryKey: ["coinData"],
+  const { data: coinData, isLoading: isCoinLoading } = useQuery<
+    CryptoDataType[]
+  >({
+    queryKey: ["coinData", params.project],
     queryFn: () => fetchCoinData(params.project),
   });
 
@@ -33,7 +35,7 @@ export default function ProjectDetails({
   console.log("coinData", coinData);
   console.log("currentCoinData?.current_price", currentCoinData?.current_price);
 
-  if (isLoading)
+  if (isProjectLoading || isCoinLoading)
     return (
       <div className="flex h-full w-full items-center justify-center">
         <Spinner />
