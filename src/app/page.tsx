@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   // Example total number of pages
-  const totalPages = 100;
+  const totalPages = 260;
 
   const { isLoading, data, refetch } = useQuery<CryptoDataType[]>({
     queryKey: ["coinsData", currentPage],
