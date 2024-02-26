@@ -5,7 +5,20 @@ import { fetchCoinData, fetchCoinsData } from "@/actions/fetch-projects";
 import CryptoCard from "@/components/crypto-card";
 import { CryptoDataType } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect, useState } from "react";
+
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import CustomPagination from "@/components/custom-pagination";
 
 const cryptoData = [
   {
@@ -109,10 +122,25 @@ const cryptoData = [
 ];
 
 export default function Home() {
-  const { isLoading, data } = useQuery<CryptoDataType[]>({
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  // Example function to handle page change
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // You can perform additional actions here, such as fetching data for the new page
+  };
+
+  // Example total number of pages
+  const totalPages = 10;
+
+  const { isLoading, data, refetch } = useQuery<CryptoDataType[]>({
     queryKey: ["coinsData"],
-    queryFn: () => fetchCoinsData(),
+    queryFn: () => fetchCoinsData(currentPage),
   });
+
+  useEffect(() => {
+    refetch();
+  }, [currentPage, refetch]);
 
   console.log("data", data);
 
@@ -134,6 +162,14 @@ export default function Home() {
             data?.map((d, i) => <CryptoCard key={i} {...{ ...d }} />)}
         </section>
       )}
+
+      {/* pagination */}
+      <CustomPagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
+
       {/* Add more CryptoCard components as needed */}
     </main>
   );
