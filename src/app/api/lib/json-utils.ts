@@ -6,16 +6,17 @@ interface JSONData {
   [key: string]: any;
 }
 
+type ProjectData = JSONData[];
 // Function to read JSON files from a folder and merge them into a single array
-export const mergeJSONFiles = (folderPath: string): JSONData[] => {
+export async function mergeJSONFiles(folderPath: string): Promise<ProjectData> {
   // Get list of files in the folder
   const files: string[] = fs.readdirSync(folderPath);
 
   // Array to hold merged JSON data
-  let mergedData: JSONData[] = [];
+  let mergedData: ProjectData = [];
 
   // Iterate over each file
-  files.forEach((file) => {
+  for (const file of files) {
     // Check if file is a JSON file
     if (file.endsWith(".json")) {
       // Read JSON file
@@ -25,12 +26,12 @@ export const mergeJSONFiles = (folderPath: string): JSONData[] => {
       );
 
       // Merge JSON data into the array
-      mergedData = mergedData.concat(jsonData);
+      mergedData = [...mergedData, ...jsonData];
     }
-  });
+  }
 
   return mergedData;
-};
+}
 
 // Function to read JSON file from a given file path
 export const readJSONFile = (filePath: string): JSONData => {
