@@ -29,7 +29,8 @@ function getDataFromJsonFiles(directoryPath: string): any[] {
 }
 
 export async function GET(request: NextRequest) {
-  const directoryPath = "public/database";
+  // const directoryPath = "public/database";
+  const directoryPath = "src/app/api/project/database";
   const database = await getDataFromJsonFiles(directoryPath);
   console.log("database", database);
 
