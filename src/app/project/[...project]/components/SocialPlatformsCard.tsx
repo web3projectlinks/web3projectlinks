@@ -15,7 +15,7 @@ import Link from "next/link";
 
 export function SocialPlatformsCard(props: SocialPlatforms) {
   return (
-    <div className="rounded-lg   shadow-md">
+    <div className="rounded-lg   ">
       <section className="flex flex-wrap gap-4 text-sm">
         <SocialLinkBtn href={props.discord} icon={FaDiscord} name="Discord" />
         <SocialLinkBtn href={props.twitter} icon={FaTwitter} name="Twitter" />

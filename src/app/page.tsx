@@ -1,49 +1,33 @@
 /** @format */
 "use client";
 
-import { useSearchParams } from "next/navigation";
-
 import { fetchCoinsData } from "@/actions/fetch-projects";
 import CryptoCard from "@/components/crypto-card";
 import { CryptoDataType } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
-import { Suspense } from "react";
+import React, { useState } from "react";
 
 import CustomPagination from "@/components/custom-pagination";
 import { Spinner } from "@/components/spinner";
 
-export default function Home() {
-  return (
-    <Suspense
-      fallback={
-        <div className="flex h-full w-full items-center justify-center">
-          <Spinner />
-        </div>
-      }
-    >
-      <Main />
-    </Suspense>
-  );
-}
+type Props = {
+  params: Record<string, any>;
+  searchParams: { page: string };
+};
 
-function Main() {
-  const searchParams = useSearchParams();
+export default function Home(props: Props) {
+  console.log("props", convertStringToNumber(props.searchParams.page));
 
-  const pageNo = searchParams.get("page");
+  const pageNo = convertStringToNumber(props.searchParams.page);
 
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  useEffect(() => {
-    const currentPageNo = pageNo ? convertStringToNumber(pageNo) : 1;
-    setCurrentPage(currentPageNo);
-  }, [currentPage, searchParams]);
+  const [currentPage, setCurrentPage] = useState<number>(pageNo);
 
   // Example function to handle page change
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     // You can perform additional actions here, such as fetching data for the new page
   };
+
   // Example total number of pages
   const totalPages = 260;
 
@@ -77,7 +61,6 @@ function Main() {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
-      {/* Add more CryptoCard components as needed */}
     </main>
   );
 }
