@@ -12,6 +12,7 @@ import {
   FaLinkedin,
   FaFacebook,
   FaReddit,
+  FaWhatsappSquare,
 } from "react-icons/fa";
 
 interface SocialLinkType {
@@ -22,13 +23,42 @@ interface SocialLinkType {
 }
 // Define data for each social media platform
 const socialLinks: SocialLinkType[] = [
-  { href: "#", title: "Discord", icon: FaDiscord },
-  { href: "#", title: "GitHub", icon: FaGithub },
-  { href: "#", title: "Twitter", icon: FaTwitter },
-  { href: "#", title: "Telegram", icon: FaTelegram },
-  { href: "#", title: "LinkedIn", icon: FaLinkedin },
-  { href: "#", title: "Facebook", icon: FaFacebook },
-  { href: "#", title: "Reddit", icon: FaReddit },
+  { href: "https://discord.gg/ZnuJzgp94V", title: "Discord", icon: FaDiscord },
+  {
+    href: "https://github.com/web3projectlinks/web3projectlinks",
+    title: "GitHub",
+    icon: FaGithub,
+  },
+  {
+    href: "https://twitter.com/web3projectlink",
+    title: "Twitter",
+    icon: FaTwitter,
+  },
+  {
+    href: "https://t.me/web3projectlinks",
+    title: "Telegram",
+    icon: FaTelegram,
+  },
+  {
+    href: "https://www.linkedin.com/company/web3projectlinks/",
+    title: "LinkedIn",
+    icon: FaLinkedin,
+  },
+  {
+    href: "https://www.facebook.com/web3projectlinks",
+    title: "Facebook",
+    icon: FaFacebook,
+  },
+  {
+    href: "https://www.reddit.com/r/web3projectlinks/",
+    title: "Reddit",
+    icon: FaReddit,
+  },
+  {
+    href: "https://whatsapp.com/channel/0029VaOabViJ93wYMUu3I71X",
+    title: "Whatsapp",
+    icon: FaWhatsappSquare,
+  },
 ];
 
 export default function Footer(props: React.HTMLAttributes<HTMLDivElement>) {

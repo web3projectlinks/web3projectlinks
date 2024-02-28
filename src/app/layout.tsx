@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* <link rel="icon" href="/logo.png" /> */}
-        <link rel="icon" href="/assets/favicon.ico" />
+        <link rel="icon" href="/favicon.ico" />
         {/* <link rel="icon" href="/favicon.ico" /> */}
       </head>
 
@@ -42,7 +42,7 @@ export default function RootLayout({
       >
         <Provider>
           {/* <main className="min-h-screen  w-full  bg-zinc-900 text-white  "> */}
-          <main className="flex h-full  min-h-screen w-full flex-col  justify-between bg-background  text-foreground  ">
+          <main className="flex h-full   min-h-screen w-full flex-col  justify-between bg-background  text-foreground  ">
             {/* <Navbar style={{ height: navbarHeight }} /> */}
             <Navbar />
             {/*  style={{

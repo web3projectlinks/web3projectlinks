@@ -1,9 +1,9 @@
 {
-  "id": "binancecoin",
+  "id": "tether",
   "description": "Ethereum is a decentralized, open-source blockchain with smart contract functionality. Ether is the native cryptocurrency of the platform. It is the second-largest cryptocurrency by market capitalization, after Bitcoin. Ethereum is the most actively used blockchain.",
   "tags": ["pos", "smart contracts", "ethereum ecosystem", "layer 1", "evm"],
   "coin_details": {
-    "name": "BNB",
+    "name": "Ethereum",
     "symbol": "ETH",
     "logo": "logo/ethereum.png",
     "max_supply": "∞"

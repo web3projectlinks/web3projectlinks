@@ -51,7 +51,7 @@ export function SearchBar() {
   //   refetch;
   // }, [value]);
 
-  console.log("searchData", data);
+  // console.log("searchData", data);
   const [open, setOpen] = useState(false);
 
   React.useEffect(() => {

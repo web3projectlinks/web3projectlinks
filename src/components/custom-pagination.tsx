@@ -6,8 +6,10 @@ import {
 } from "@/components/ui/pagination";
 
 import React from "react";
-import { Button } from "./ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { buttonVariants } from "@/components/ui/button";
 
 interface PaginationProps {
   currentPage: number;
@@ -40,19 +42,26 @@ const CustomPagination: React.FC<PaginationProps> = ({
   };
 
   return (
-    <>
+    <div className="  w-full overflow-x-auto px-3">
       <Pagination>
         <PaginationContent>
           <PaginationItem>
-            <Button
+            <button
               disabled={currentPage === 1}
               onClick={() => onPageChange(currentPage - 1)}
-              variant={"ghost"}
               className="flex gap-2"
             >
-              <ChevronLeft className="h-4 w-4" />
-              <span>Previous</span>
-            </Button>
+              <Link
+                href={`/?page=${currentPage - 1}`}
+                className={cn(
+                  "flex items-center gap-2",
+                  buttonVariants({ variant: "ghost" }),
+                )}
+              >
+                <ChevronLeft className="h-4 w-4" />
+                <span>Previous</span>
+              </Link>
+            </button>
           </PaginationItem>
 
           {getPageNumbers().map((page, index, array) => (
@@ -63,30 +72,42 @@ const CustomPagination: React.FC<PaginationProps> = ({
                 </PaginationItem>
               )}
               <PaginationItem>
-                <Button
+                <button
                   disabled={currentPage === page}
                   onClick={() => onPageChange(page)}
-                  variant={"ghost"}
                 >
-                  {page}
-                </Button>
+                  <Link
+                    href={`/?page=${page}`}
+                    className={cn(buttonVariants({ variant: "ghost" }), {
+                      "bg-secondary text-foreground": currentPage === page,
+                    })}
+                  >
+                    {page}
+                  </Link>
+                </button>
               </PaginationItem>
             </React.Fragment>
           ))}
           <PaginationItem>
-            <Button
+            <button
               disabled={currentPage === totalPages}
               onClick={() => onPageChange(currentPage + 1)}
-              variant={"ghost"}
-              className="flex gap-2"
             >
-              <span>Next</span>
-              <ChevronRight className="h-4 w-4" />
-            </Button>
+              <Link
+                href={`/?page=${currentPage + 1}`}
+                className={cn(
+                  "flex items-center gap-2",
+                  buttonVariants({ variant: "ghost" }),
+                )}
+              >
+                <span>Next</span>
+                <ChevronRight className="h-4 w-4" />
+              </Link>
+            </button>
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-    </>
+    </div>
   );
 };
 

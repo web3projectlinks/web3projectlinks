@@ -1,6 +1,8 @@
 /** @format */
 "use client";
 
+import { useSearchParams } from "next/navigation";
+
 import { fetchCoinData, fetchCoinsData } from "@/actions/fetch-projects";
 import CryptoCard from "@/components/crypto-card";
 import { CryptoDataType } from "@/types/type";
@@ -13,14 +15,18 @@ import CustomPagination from "@/components/custom-pagination";
 import { Spinner } from "@/components/spinner";
 
 export default function Home() {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const searchParams = useSearchParams();
+
+  const pageNo = searchParams.get("page");
+  const currentPageNo = pageNo ? convertStringToNumber(pageNo) : 1;
+
+  const [currentPage, setCurrentPage] = useState<number>(currentPageNo);
 
   // Example function to handle page change
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     // You can perform additional actions here, such as fetching data for the new page
   };
-
   // Example total number of pages
   const totalPages = 260;
 
@@ -37,12 +43,12 @@ export default function Home() {
     );
 
   return (
-    <main className="flex h-full flex-col gap-4 overflow-auto  px-3 pb-10 sm:px-10">
+    <main className="flex h-full  w-full flex-col gap-4 overflow-auto  px-3 pb-10 sm:px-10">
       <h1 className="  border-b border-gray-700 py-5 text-3xl font-semibold text-white ">
         All Projects
       </h1>
 
-      <section className=" grid h-full  grid-cols-1 gap-6    sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <section className=" grid  h-full min-h-[200px]  grid-cols-1 gap-6    sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {data &&
           data?.length > 0 &&
           data?.map((d, i) => <CryptoCard key={i} {...{ ...d }} />)}
@@ -54,8 +60,16 @@ export default function Home() {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
-
       {/* Add more CryptoCard components as needed */}
     </main>
   );
+}
+
+function convertStringToNumber(str: string | null): number {
+  if (str === null) {
+    return 1; // return default value if null is passed
+  }
+
+  let num = parseFloat(str);
+  return isNaN(num) ? 1 : num;
 }
