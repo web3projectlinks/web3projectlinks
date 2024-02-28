@@ -7,7 +7,7 @@ import { fetchCoinsData } from "@/actions/fetch-projects";
 import CryptoCard from "@/components/crypto-card";
 import { CryptoDataType } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Suspense } from "react";
 
 import CustomPagination from "@/components/custom-pagination";
@@ -31,9 +31,13 @@ function Main() {
   const searchParams = useSearchParams();
 
   const pageNo = searchParams.get("page");
-  const currentPageNo = pageNo ? convertStringToNumber(pageNo) : 1;
 
-  const [currentPage, setCurrentPage] = useState<number>(currentPageNo);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  useEffect(() => {
+    const currentPageNo = pageNo ? convertStringToNumber(pageNo) : 1;
+    setCurrentPage(currentPageNo);
+  }, [currentPage, searchParams]);
 
   // Example function to handle page change
   const handlePageChange = (page: number) => {
