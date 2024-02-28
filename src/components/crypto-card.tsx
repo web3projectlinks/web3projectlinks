@@ -13,7 +13,7 @@ export default function CryptoCard(props: CryptoDataType) {
   return (
     <Link
       href={`/project/${props.id}`}
-      className="    flex cursor-pointer flex-col gap-4 rounded-lg border border-gray-300 p-2  shadow shadow-white transition-all hover:opacity-60"
+      className="    flex cursor-pointer flex-col gap-4 rounded-lg border border-gray-300 p-2  shadow shadow-white transition-all hover:bg-secondary/90"
     >
       <section className="flex items-center gap-3">
         <h2 className="text-2xl"> #{props.market_cap_rank} </h2>
