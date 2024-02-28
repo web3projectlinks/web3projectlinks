@@ -3,18 +3,31 @@
 
 import { useSearchParams } from "next/navigation";
 
-import { fetchCoinData, fetchCoinsData } from "@/actions/fetch-projects";
+import { fetchCoinsData } from "@/actions/fetch-projects";
 import CryptoCard from "@/components/crypto-card";
 import { CryptoDataType } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Suspense } from "react";
 
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import CustomPagination from "@/components/custom-pagination";
 import { Spinner } from "@/components/spinner";
 
 export default function Home() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-full w-full items-center justify-center">
+          <Spinner />
+        </div>
+      }
+    >
+      <Main />
+    </Suspense>
+  );
+}
+
+function Main() {
   const searchParams = useSearchParams();
 
   const pageNo = searchParams.get("page");
@@ -30,7 +43,7 @@ export default function Home() {
   // Example total number of pages
   const totalPages = 260;
 
-  const { isLoading, data, refetch } = useQuery<CryptoDataType[]>({
+  const { isLoading, data } = useQuery<CryptoDataType[]>({
     queryKey: ["coinsData", currentPage],
     queryFn: () => fetchCoinsData(currentPage),
   });
