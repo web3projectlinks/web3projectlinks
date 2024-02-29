@@ -10,7 +10,7 @@ export default function Navbar(props: React.HTMLProps<HTMLDivElement>) {
   return (
     <nav
       className={cn(
-        "sticky top-0 flex  w-full  items-center justify-between  border-b-[1px] border-slate-600   bg-background px-10 py-2 text-foreground backdrop-blur-sm ",
+        "sticky top-0 flex  w-full  items-center justify-between  gap-2 border-b-[1px]   border-slate-600 bg-background px-10 py-2 text-foreground backdrop-blur-sm ",
         props.className,
       )}
     >

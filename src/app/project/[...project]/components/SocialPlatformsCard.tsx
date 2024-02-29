@@ -12,10 +12,13 @@ import {
   FaReddit,
 } from "react-icons/fa";
 import Link from "next/link";
+import { copyText } from "@/lib/utils";
+import { toast } from "@/components/ui/use-toast";
+import { IoCopy } from "react-icons/io5";
 
 export function SocialPlatformsCard(props: SocialPlatforms) {
   return (
-    <div className="rounded-lg   shadow-md">
+    <div className="rounded-lg   ">
       <section className="flex flex-wrap gap-4 text-sm">
         <SocialLinkBtn href={props.discord} icon={FaDiscord} name="Discord" />
         <SocialLinkBtn href={props.twitter} icon={FaTwitter} name="Twitter" />
@@ -32,18 +35,28 @@ export function SocialPlatformsCard(props: SocialPlatforms) {
 }
 
 function SocialLinkBtn(props: { href: string; icon?: IconType; name: string }) {
+  function handleCopy() {
+    copyText(props.href);
+    toast({
+      description: `Copied : ${props.href}`,
+    });
+  }
   const { icon: Icon } = props;
   return (
-    <Link
-      href={props.href}
-      target="_blank"
-      className="flex items-center gap-2 rounded border-2 p-1 opacity-80 hover:opacity-50"
-    >
+    <p className="flex items-center gap-2 rounded border-2 p-1 opacity-80 ">
       {Icon && <Icon size={20} />}
       <p className="text-sm">{props.name}</p>
-      <div className="flex min-h-6  min-w-6 items-center justify-center">
+      <IoCopy
+        onClick={handleCopy}
+        className="cursor-pointer hover:opacity-80 "
+      />
+      <Link
+        href={props.href}
+        target="_blank"
+        className="flex min-h-6  min-w-6 items-center justify-center gap-2"
+      >
         <HiOutlineExternalLink size={20} />
-      </div>
-    </Link>
+      </Link>
+    </p>
   );
 }

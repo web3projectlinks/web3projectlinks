@@ -1,19 +1,26 @@
 /** @format */
 "use client";
 
-import { fetchCoinData, fetchCoinsData } from "@/actions/fetch-projects";
+import { fetchCoinsData } from "@/actions/fetch-projects";
 import CryptoCard from "@/components/crypto-card";
 import { CryptoDataType } from "@/types/type";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import CustomPagination from "@/components/custom-pagination";
 import { Spinner } from "@/components/spinner";
 
-export default function Home() {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+type Props = {
+  params: Record<string, any>;
+  searchParams: { page: string };
+};
+
+export default function Home(props: Props) {
+  console.log("props", convertStringToNumber(props.searchParams.page));
+
+  const pageNo = convertStringToNumber(props.searchParams.page);
+
+  const [currentPage, setCurrentPage] = useState<number>(pageNo);
 
   // Example function to handle page change
   const handlePageChange = (page: number) => {
@@ -24,7 +31,7 @@ export default function Home() {
   // Example total number of pages
   const totalPages = 260;
 
-  const { isLoading, data, refetch } = useQuery<CryptoDataType[]>({
+  const { isLoading, data } = useQuery<CryptoDataType[]>({
     queryKey: ["coinsData", currentPage],
     queryFn: () => fetchCoinsData(currentPage),
   });
@@ -37,12 +44,12 @@ export default function Home() {
     );
 
   return (
-    <main className="flex h-full flex-col gap-4 overflow-auto  px-3 pb-10 sm:px-10">
+    <main className="flex h-full  w-full flex-col gap-4 overflow-auto  px-3 pb-10 sm:px-10">
       <h1 className="  border-b border-gray-700 py-5 text-3xl font-semibold text-white ">
         All Projects
       </h1>
 
-      <section className=" grid h-full  grid-cols-1 gap-6    sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <section className=" grid  h-full min-h-[200px]  grid-cols-1 gap-6    sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {data &&
           data?.length > 0 &&
           data?.map((d, i) => <CryptoCard key={i} {...{ ...d }} />)}
@@ -54,8 +61,15 @@ export default function Home() {
         totalPages={totalPages}
         onPageChange={handlePageChange}
       />
-
-      {/* Add more CryptoCard components as needed */}
     </main>
   );
+}
+
+function convertStringToNumber(str: string | null): number {
+  if (str === null) {
+    return 1; // return default value if null is passed
+  }
+
+  let num = parseFloat(str);
+  return isNaN(num) ? 1 : num;
 }

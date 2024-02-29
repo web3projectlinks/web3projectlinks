@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { mergeJSONFiles } from "../lib/json-utils";
-import { fetchCoinData } from "@/actions/fetch-projects";
+import { getDataFromJsonFiles } from "../lib/getDataFromJsonFiles";
+// import { mergeJSONFiles } from "../lib/json-utils";
 
 export async function GET(request: NextRequest) {
-  const filePath = `public/database`;
-  const database = mergeJSONFiles(filePath);
-
-  console.log("fetchCoinData", fetchCoinData("ethereum"));
-  console.log("fetchCoinData", typeof fetchCoinData("ethereum"));
+  // const directoryPath = "public/database";
+  const directoryPath = "src/app/api/project/database";
+  const database = await getDataFromJsonFiles(directoryPath);
+  console.log("database", database);
 
   // get the search params as a URLSearchParams object
   const searchParams = request.nextUrl.searchParams;

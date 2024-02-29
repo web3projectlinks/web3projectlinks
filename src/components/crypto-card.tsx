@@ -13,18 +13,24 @@ export default function CryptoCard(props: CryptoDataType) {
   return (
     <Link
       href={`/project/${props.id}`}
-      className="    flex cursor-pointer flex-col gap-4 rounded-lg border border-gray-300 p-2 text-white shadow shadow-white transition-all hover:opacity-60"
+      className="    flex cursor-pointer flex-col gap-4 rounded-lg border border-gray-300 p-2  shadow shadow-white transition-all hover:bg-secondary/90"
     >
       <section className="flex items-center gap-3">
         <h2 className="text-2xl"> #{props.market_cap_rank} </h2>
         <img
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.onerror = null;
+            target.src = "/assets/black.png";
+          }}
           // src={props.projectImg}
           // src={"https://cdn-icons-png.flaticon.com/512/6001/6001368.png"}
           src={props.image}
           className="card-img-top h-10 w-10 rounded-full border  object-cover p-1"
           alt={"project-img"}
         />
-        <h5 className=" text-sm font-semibold capitalize">{props.id}</h5>
+        {/* <h5 className=" text-sm font-semibold capitalize">{props.id}</h5> */}
+        <h5 className=" text-sm font-semibold capitalize">{props.name}</h5>
       </section>
       <div className="whitespace-nowrap  font-thin">
         {" "}

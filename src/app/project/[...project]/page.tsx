@@ -21,7 +21,7 @@ export default function ProjectDetails({
   const { isLoading: isProjectLoading, data: project } = useQuery<ProjectData>({
     queryKey: ["singleProject", params.project],
     queryFn: () =>
-      fetch(`/api/project/${params.project}`).then((res) => res.json()),
+      fetch(`/database/${params.project}.json`).then((res) => res.json()),
   });
   const { data: coinData, isLoading: isCoinLoading } = useQuery<
     CryptoDataType[]
@@ -35,12 +35,12 @@ export default function ProjectDetails({
   console.log("coinData", coinData);
   console.log("currentCoinData?.current_price", currentCoinData?.current_price);
 
-  if (isProjectLoading || isCoinLoading)
-    return (
-      <div className="flex h-full w-full items-center justify-center">
-        <Spinner />
-      </div>
-    );
+  // if (isProjectLoading || isCoinLoading)
+  //   return (
+  //     <div className="flex h-full w-full items-center justify-center">
+  //       <Spinner />
+  //     </div>
+  //   );
 
   // const decimalNotation: string = currentCoinData
   //   ? scientificToDecimal(currentCoinData?.current_price)
@@ -49,9 +49,13 @@ export default function ProjectDetails({
     <div className="flex flex-col gap-5 bg-background p-10 text-foreground">
       <section className="flex flex-col   gap-2">
         <div className="flex items-center gap-3">
-          <h2 className="text-2xl text-slate-300">
-            #{currentCoinData?.market_cap_rank}{" "}
-          </h2>
+          {isCoinLoading ? (
+            <h2 className="h-6 w-8 animate-pulse rounded bg-secondary" />
+          ) : (
+            <h2 className="text-2xl text-slate-300">
+              #{currentCoinData?.market_cap_rank}{" "}
+            </h2>
+          )}
           <div className="h-16 w-16 overflow-hidden rounded-full bg-secondary ">
             {project?.id && (
               <img
@@ -71,11 +75,16 @@ export default function ProjectDetails({
             )}
           </div>
           <h5 className="card-title text-2xl font-bold capitalize">
-            {project?.id}
+            {project?.coin_details.name}
           </h5>
-          <h5 className="card-title text-lg font-medium capitalize">
-            : ${currentCoinData?.current_price}
-          </h5>
+
+          {isCoinLoading ? (
+            <h2 className="h-4 w-16 animate-pulse rounded bg-secondary" />
+          ) : (
+            <h5 className="card-title text-lg font-medium capitalize">
+              : ${currentCoinData?.current_price}
+            </h5>
+          )}
         </div>
         {/* discription */}
         <Balancer>
