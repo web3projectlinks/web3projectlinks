@@ -31,7 +31,7 @@ export function URLCard(props: UrlData) {
           }}
           // src={"https://cdn-icons-png.flaticon.com/512/6001/6001368.png"}
           // src={currentCoinData?.image}
-          src={`/logos/${name}.ico`}
+          src={`/logos/${projectId}.ico`}
           className="card-img-top h-full w-full      object-cover "
           alt={" "}
           // alt={"project-img"}
